@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div id="app" class="container mx-auto my-4"></div>
+    <div id="app" class="container mx-auto my-4 px-2"></div>
     <script src="https://cdn.jsdelivr.net/npm/dataformsjs@4.0.1/js/react/jsxLoader.min.js"></script>
     <script src="https://unpkg.com/react@17.0.2/umd/react.development.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js" crossorigin="anonymous"></script>
@@ -194,7 +194,7 @@
                     {
                         historyGuesses.length > 0 && (
                             <>
-                                <h2 className="text-3xl my-2">History Selection</h2>
+                                <h2 className="text-3xl my-2">Historic Selection</h2>
                                 {
                                     historyGuesses.map((idols, key) =>
                                         (<IdolySlots key={key} actual={idols} expect={answerIdols} />)
