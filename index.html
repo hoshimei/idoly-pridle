@@ -24,10 +24,28 @@
             "Mana"
         ]
 
+        const teams = [
+            ["Kotono", "Nagisa", "Saki", "Suzu", "Mei"],
+            ["Sakura", "Shizuku", "Chisa", "Rei", "Haruko"],
+            ["Rui", "Yui", "Sumire"],
+            ["Rio", "Aoi", "Ai", "Kokoro"],
+            ["Mana"],
+        ]
+
         const StatusColor = {
             0: '!bg-gray-200',
             1: '!bg-yellow-200',
-            2: '!bg-green-200'
+            2: '!bg-orange-200',
+            5: '!bg-green-200'
+        }
+
+        const isInSameTeam = (a, b) => {
+            const inTeam = (name) => {
+                for (let i = 0; i < teams.length; i++) {
+                    if (teams[i].includes(name)) return i
+                }
+            }
+            return inTeam(idols[a]) === inTeam(idols[b])
         }
 
         const generateRandomIdolList = (len) => {
@@ -46,6 +64,8 @@
                 const act = actual[i]
                 const exp = expect[i]
                 if (act === exp) {
+                    result.push(5)
+                } else if (isInSameTeam(act, exp)) {
                     result.push(2)
                 } else if (expect.includes(act)) {
                     result.push(1)
@@ -120,7 +140,7 @@
                 if (selectedIdols.length === 5) {
                     const validationResult = validateIdols(selectedIdols, answerIdols)
                     updateIdolsStatus(validationResult, selectedIdols)
-                    if (validationResult.filter(x => x !== 2).length === 0) {
+                    if (validationResult.filter(x => x !== 5).length === 0) {
                         alert("Success!")
                         cleanup()
                         return
@@ -141,6 +161,15 @@
             return (
                 <>
                     <h1 className="text-5xl font-bold mb-3 text-center">IDOLY PRIDLE</h1>
+                    <p className="text-center">
+                        <ul>
+                            <li>Green - Exact match</li>
+                            <li>Yellow - Present, but another position</li>
+                            <li>Orange - Not present, but is of the same team</li>
+                            <li>Gray - Not present, and of different teams</li>
+                            <li>Blue - Haven't chosen</li>
+                        </ul>
+                    </p>
                     <div className="flex items-center justify-center my-2">
                         {selectedIdols.map((x, key) =>
                             <button key={key} className="mr-2 px-2 py-2 rounded border bg-indigo-200"
